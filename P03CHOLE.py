@@ -1,5 +1,29 @@
 from math import sqrt
 
+def getL(A):
+
+	lines = len(A)
+	columns = len(A[0])
+
+	L = [[0 for j in range(columns)] for i in range(lines)]
+
+	L[0][0] = sqrt(A[0][0])
+
+	for i in range(1, lines, 1):
+		L[i][0] = (1/float(L[0][0])) * A[i][0]
+
+	L[1][1] = sqrt(A[1][1]-L[1][0]**2)
+	L[2][1] = (1/float(L[1][1]))*(A[2][1]-L[2][0]*L[1][0])
+
+	L[2][2] = sqrt(A[2][2]-(L[2][0]**2-L[2][1]**2))
+
+	print(L)
+
+A = [[4,2,-4],[2,10,4],[-4,4,9]]
+
+getL(A)
+
+"""
 def transpose(A):
 	B = []
 	l = len(A)
@@ -54,7 +78,7 @@ for i in range(n - 1, -1, -1):
 
 
 print("Solution for x is: ", x)
-
+"""
 
 """
 	x1 = 0.5
