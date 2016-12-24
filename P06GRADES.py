@@ -78,7 +78,6 @@ def GradDesc(A, b, guess, tol):
 
 	r=subtract(b, multiply(A, guess))
 
-	print(" The residual when K is " + str(k) + ", is " + str(r))
 	#print(" The norm is " + str(norm(r)))
 
 	while(norm(r) > tol):
@@ -90,7 +89,6 @@ def GradDesc(A, b, guess, tol):
 
 		k += 1
 		r=subtract(b, multiply(A, guess))
-		print("[" + str(k) +"] The residual when K is " + str(k) + ", is " + str(r))
 		#print(" The norm is " + str(norm(r)))
 
 	return guess
@@ -98,7 +96,7 @@ def GradDesc(A, b, guess, tol):
 A = [[1,-1,2], [-1,5,-4],[2,-4,6]]
 b = [0,1,0]
 x = [0,0,0]
-e = 0.01
+e = 0.00001
 
 sol = GradDesc(A, b, x, e)
 

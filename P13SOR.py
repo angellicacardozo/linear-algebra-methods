@@ -43,8 +43,6 @@ def SOR(A,b,x):
 
 			xs[i] = ((1-w) * xs[i]) + (w * (b[i] + summ)) * (1/float(A[i][i]))
 
-		print(xs)
-
 	return xs
 
 A = [[1,-1,2], [-1,5,-4],[2,-4,6]]

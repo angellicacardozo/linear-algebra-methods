@@ -114,7 +114,7 @@ def ConjGrad(A,b, guess, kmax, tol):
 A = [[1,-1,2], [-1,5,-4],[2,-4,6]]
 b = [0,1,0]
 x = [0,0,0]
-e = 0.01
+e = 0.001
 
 sol = ConjGrad(A, b, x, 10, e)
 

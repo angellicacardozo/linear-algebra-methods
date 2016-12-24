@@ -31,11 +31,17 @@ def lu(A):
             L[i][j] = (A2[i][j] - s2) / U[j][j]
     return (L, U, P)
 
-A = [[4,3,2], [3,2,4], [1,1,2]]
-b = [1,2,3]
+#A = [[4,3,2], [3,2,4], [1,1,2]]
+#b = [1,2,3]
+
+
+A = [[1,-1,2,0], [-1,5,-4,1],[2,-4,6,0]]
+b = [0,1,0]
 
 L  = lu(A)[0]
 U  = lu(A)[1]
+
+print(L)
 
 n = len(A)
 
@@ -46,7 +52,7 @@ for i in range(0,n,1):
 	for k in range(0,i,1):
 		y[i] -= y[k]*L[i][k]
 
-# (6) Perform substitution Ltx=y
+# (6) Perform substitution Ux=y
 x = [0 for i in range(n)]
 for i in range(n - 1, -1, -1):
 	x[i] = y[i]/float(U[i][i])
