@@ -22,7 +22,6 @@ def calc(A,b,x):
 
 	return xn
 
-
 def convergePorLinhas(A):
 	lines = len(A)
 	columns = len(A[0])
@@ -49,11 +48,8 @@ def convergePorNorma(x, k, eps):
 	EPSILON=0.0001
 	return (norma(subtract(x[k-1], x[k])) < eps)
 
-
 def height(m):
   return len(m)
-
-
 
 def JCB(A, b, x0=None, eps=0.000001, max_iteration=1000):
 
