@@ -60,9 +60,11 @@ def solve(A,L):
 
 	y = [0 for i in range(n)]
 	for i in range(0,n,1):
-		y[i] = b[i]/float(L[i][i])
+		acc = b[i]
 		for k in range(0,i,1):
-			y[i] -= y[k]*L[i][k]
+			acc = acc - L[i][k]*y[k]
+
+		y[i] = (1/float(L[i][i]))*(acc)
 
 	x = [0 for i in range(n)]
 	for i in range(n - 1, -1, -1):
