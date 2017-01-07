@@ -56,6 +56,8 @@ def solve(A,L):
 	L  = getL(A)
 	Lt = transpose(L)
 
+	print(L,Lt)
+
 	n = len(A)
 
 	y = [0 for i in range(n)]
