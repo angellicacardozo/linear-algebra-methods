@@ -85,7 +85,7 @@ def Arnoldi(A,b,m):
 		h[j+1][j]=norma(w[j])
 
 		if abs(h[j+1][j])<EPSILON:
-			j=m+1
+			j=m+1 #breaks the loop
 		else:
 			v[j+1]=multiplicarEscVet(1/float(h[j+1][j]),w[j])
 			j = j + 1
@@ -115,5 +115,8 @@ b = [1,2,3]
 
 #A = [[3,-2],[-5,4]]
 #b = [6,8]
+
+#A=[[1,2,3],[-1,1,1],[1,1,1],[1,1,1]]
+#b=[1,1,1]
 
 Arnoldi(A,b,3)
