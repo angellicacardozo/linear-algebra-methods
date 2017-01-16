@@ -96,7 +96,7 @@ def GivensQR(A):
 			# Primeira rodada
 			acc = transpose(accG[i])
 		else:
-			acc = multiply(accG[i], acc)
+			acc = multiply(transpose(accG[i]), acc)
 
 	Q = acc
 
