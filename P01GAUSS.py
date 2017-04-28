@@ -2,6 +2,7 @@
 	Gauss function to solve a mxn matrix
 	It takes one more step than the original version: https://martin-thoma.com/solving-linear-equations-with-gaussian-elimination/
 '''
+import sys, gc
 
 # returns: A X vector with the solution for the sistem
 def Gauss(A):
@@ -33,6 +34,9 @@ def Gauss(A):
 		# (4) Make the rows bellow this one zero in the current column
 		for k in range(i+1, n):
 			A[k][i]=0
+
+	collected = gc.collect()
+	print "Garbage collector: collected %d objects." % (collected)
 
 	# (5) Solve the equation Ax=b
 	x = [0 for i in range(n)] # x <- 0
