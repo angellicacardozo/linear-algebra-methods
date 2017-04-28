@@ -52,13 +52,13 @@ def getL(A):
 		
 		L[i+1][i] = (1/float(L[i][i]))*(A[i+1][i] - acc)
 
-def solve(A,L):
+def solve(A, b):
 	L  = getL(A)
 	Lt = transpose(L)
 
-	print(L,Lt)
-
 	n = len(A)
+
+	A = None
 
 	y = [0 for i in range(n)]
 	for i in range(0,n,1):
@@ -67,6 +67,9 @@ def solve(A,L):
 			acc = acc - L[i][k]*y[k]
 
 		y[i] = (1/float(L[i][i]))*(acc)
+
+	b = None
+	L = None
 
 	x = [0 for i in range(n)]
 	for i in range(n - 1, -1, -1):
@@ -86,9 +89,7 @@ b = [0,1,0]
 A = [[1,-1,2], [-1,5,-4],[2,-4,6]]
 b = [0,1,0]
 
-
-L  = getL(A)
-x = solve(A,L)
+x = solve(A,b)
 
 print("Solution for x is: ", x)
 

@@ -57,8 +57,10 @@ def innerProduct(u,v):
 
 def GMRES(A, b):
 
-	maxIter = 150
+	maxIter = 5
 	convergenceCount = 0
+
+	EPSILON = 0.0001
 
 	x = [0 for i in range(len(A[0]))]
 	v = [0 for i in range(maxIter + 1)]
@@ -68,7 +70,7 @@ def GMRES(A, b):
 	sine = [0 for i in range(maxIter - 1)]
 	p 	 = [0 for i in range(maxIter)]
 
-	while convergenceCount < maxIter: # Limita as iteracoes do metodo para convergencia
+	while convergenceCount <= maxIter: # Limita as iteracoes do metodo para convergencia
 
 		r = subtract(b, multiply(A,x))
 		beta = norm(r) # Em matematica usamos as denominacoes gregas para as variaveis, poderia ser qualquer outra coisa
@@ -76,17 +78,25 @@ def GMRES(A, b):
 		p[0] = beta
 
 		for j in range(maxIter): # Iteracao dos passos do GMRES, limitada ao maximo de interacoes
+
+			print("Roda a iteracao do GMRES")
+
 			w = multiply(A, v[j]) # Aqui nao ha precondicionamento
 
-			for i in range(j): # Fazemos o Gramm-Schmidt, um pouco diferente do que eu aprendi na outra vez
+			for i in range(j + 1): # Fazemos o Gramm-Schmidt, um pouco diferente do que eu aprendi na outra vez
+				print("Realizando Gramm-Schmidt")
 				h[i][j] = innerProduct(w, v[i])
 				w = subtract(w, scalarTimesVector(h[i][j], v[i])) # Lembrando que w e um vetor
 
 			h[j + 1][j] = norm(w)
-			v[j + 1] = scalarTimesVector(1/float(h[j + 1][j]), w) # Aqui montamos o subespaco de Krylov
+			if not abs(h[j+1][j])<EPSILON: # verificamos se nossa matrix ficou pronta
+				v[j + 1] = scalarTimesVector(1/float(h[j + 1][j]), w) # Aqui montamos o subespaco de Krylov
+
+			# Teoricamente daqui para baixo esta fora do FOR
 
 			# Aqui vem um ponto interessante, na implementacao original do QR com Givens, nao e necessario acumular seno e cosseno, aqui e necessario
 			for i in range(j - 1): # Rotacao de Givens na matrix H
+				print("Realizando rotacao de Givens")
 				h[i][j] = coss[i]*h[i][j] + sine[i]*h[i + 1][j]
 				h[i + 1][j] = (-1)*(sine[i]*h[i][j]) + (coss[i]*h[i + 1][j])
 
@@ -94,6 +104,8 @@ def GMRES(A, b):
 			rot = math.sqrt(h[j][j]**2 + h[j+1][j]**2)
 			coss[j] = h[j][j]/float(rot)
 			sine[j] = h[j + 1][j]/float(rot)
+
+			print("Calculando os angulos coss[" + str(j) + "] = " + str(coss[j]) + " e sine["+ str(j) + "] = " + str(sine[j]))
 
 			# Rotacao de Givens em H
 			h[j][j] = rot
@@ -103,11 +115,16 @@ def GMRES(A, b):
 			p[j] = coss[j]*p[j]
 			p[j + 1] = (-1)*(sine[j]*p[j])
 
-			if abs(p[j + 1]) < 0.0001:
+			print("Calcula p[" + str(j + 1) + "]", p[j + 1])
+
+			if abs(p[j + 1]) < EPSILON:
 				break;
 
-		if abs(p[j + 1]) < 0.0001:
-			convergenceCount = convergenceCount + 1
+		print("Matriz H")
+		print(h)
+
+		if abs(p[j + 1]) < EPSILON:
+			convergenceCount = maxIter + 1
 		else:
 			convergenceCount = convergenceCount + 1
 
