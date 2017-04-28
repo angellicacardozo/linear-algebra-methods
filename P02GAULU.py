@@ -1,4 +1,5 @@
 from pprint import pprint
+import sys, gc
  
 def matrixMul(A, B):
     TB = zip(*B)
@@ -47,9 +48,11 @@ b = [0,1,0]
 L  = lu(A)[0]
 U  = lu(A)[1]
 
-print(L)
-
 n = len(A)
+
+A = None
+collected = gc.collect()
+print "Garbage collector: collected %d objects." % (collected)
 
 # (5) Perform substitutioan Ly=b
 y = [0 for i in range(n)]
@@ -57,6 +60,11 @@ for i in range(0,n,1):
 	y[i] = b[i]/float(L[i][i])
 	for k in range(0,i,1):
 		y[i] -= y[k]*L[i][k]
+
+b = None
+L = None
+collected = gc.collect()
+print "Garbage collector: collected %d objects." % (collected)
 
 # (6) Perform substitution Ux=y
 x = [0 for i in range(n)]
