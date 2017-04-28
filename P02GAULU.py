@@ -21,6 +21,9 @@ def lu(A):
     U = [[0.0] * n for i in xrange(n)]
     P = pivotize(A)
     A2 = matrixMul(P, A)
+
+    A = None
+
     for j in xrange(n):
         L[j][j] = 1.0
         for i in xrange(j+1):
@@ -29,6 +32,9 @@ def lu(A):
         for i in xrange(j, n):
             s2 = sum(U[k][j] * L[i][k] for k in xrange(j))
             L[i][j] = (A2[i][j] - s2) / U[j][j]
+
+    A2 = None
+
     return (L, U, P)
 
 #A = [[4,3,2], [3,2,4], [1,1,2]]

@@ -1,4 +1,5 @@
 from math import sqrt
+import sys, gc
 
 def transpose(A):
 	B = []
@@ -59,6 +60,8 @@ def solve(A, b):
 	n = len(A)
 
 	A = None
+	collected = gc.collect()
+	print "Garbage collector: collected %d objects." % (collected)
 
 	y = [0 for i in range(n)]
 	for i in range(0,n,1):
@@ -70,6 +73,8 @@ def solve(A, b):
 
 	b = None
 	L = None
+	collected = gc.collect()
+	print "Garbage collector: collected %d objects." % (collected)
 
 	x = [0 for i in range(n)]
 	for i in range(n - 1, -1, -1):
